@@ -1,0 +1,113 @@
+{
+ "bpm": 100,
+ "beat": 0.6,
+ "intro": 0.2,
+ "total": 36.4,
+ "music": {
+  "style": "ambient",
+  "key": "D",
+  "level": 1,
+  "file": null
+ },
+ "shots": [
+  {
+   "id": "01-sequence",
+   "type": "sequence",
+   "start": 0.2,
+   "len": 4.8,
+   "beats": 8,
+   "energy": 0,
+   "drop": false,
+   "vo": null,
+   "theme": "light"
+  },
+  {
+   "id": "02-reveal",
+   "type": "reveal",
+   "start": 5,
+   "len": 3.5999999999999996,
+   "beats": 6,
+   "energy": 2,
+   "drop": true,
+   "vo": null,
+   "theme": "light"
+  },
+  {
+   "id": "03-device",
+   "type": "device",
+   "start": 8.6,
+   "len": 4.2,
+   "beats": 7,
+   "energy": 2,
+   "drop": false,
+   "vo": null,
+   "theme": "light"
+  },
+  {
+   "id": "04-screen",
+   "type": "screen",
+   "start": 12.8,
+   "len": 3.5999999999999996,
+   "beats": 6,
+   "energy": 2,
+   "drop": false,
+   "vo": null,
+   "theme": "light"
+  },
+  {
+   "id": "05-device",
+   "type": "device",
+   "start": 16.4,
+   "len": 4.2,
+   "beats": 7,
+   "energy": 2,
+   "drop": false,
+   "vo": null,
+   "theme": "light"
+  },
+  {
+   "id": "06-statement",
+   "type": "statement",
+   "start": 20.599999999999998,
+   "len": 3,
+   "beats": 5,
+   "energy": 1,
+   "drop": false,
+   "vo": null,
+   "theme": "light"
+  },
+  {
+   "id": "07-device",
+   "type": "device",
+   "start": 23.599999999999998,
+   "len": 3.5999999999999996,
+   "beats": 6,
+   "energy": 2,
+   "drop": false,
+   "vo": null,
+   "theme": "light"
+  },
+  {
+   "id": "08-device",
+   "type": "device",
+   "start": 27.199999999999996,
+   "len": 3.5999999999999996,
+   "beats": 6,
+   "energy": 2,
+   "drop": false,
+   "vo": null,
+   "theme": "light"
+  },
+  {
+   "id": "09-end",
+   "type": "end",
+   "start": 30.799999999999997,
+   "len": 5.6,
+   "beats": 7,
+   "energy": 1,
+   "drop": false,
+   "vo": null,
+   "theme": "light"
+  }
+ ]
+}

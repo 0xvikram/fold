@@ -1,0 +1,8 @@
+{
+  "base": "https://your-product.example",
+  "out": "shots",
+  "shots": [
+    { "name": "app", "path": "/", "viewport": [1600, 1000], "dsf": 2, "wait": "#main", "element": "#main .panel", "delay": 1500 },
+    { "name": "phone", "path": "/approve", "viewport": [390, 844], "dsf": 3, "delay": 2500 }
+  ]
+}

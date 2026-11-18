@@ -242,7 +242,7 @@ function Intro({ par, onPlay }: { par: number; onPlay: () => void }) {
       <h1>Fold</h1>
       <p className="tag">One paper. One shape. A new one every day.</p>
       <ol className="how">
-        <li><span>1</span> Look at the grey shape.</li>
+        <li><span>1</span> Look at the striped shape.</li>
         <li><span>2</span> Drag a corner of the paper to where it should land.</li>
         <li><span>3</span> Match the shape in {par} folds or fewer.</li>
       </ol>

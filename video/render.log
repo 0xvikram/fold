@@ -1,0 +1,12 @@
+0%  frame 0/1092  elapsed 0s  eta 0s
+10%  frame 110/1092  elapsed 4s  eta 32s
+20%  frame 219/1092  elapsed 7s  eta 29s
+30%  frame 328/1092  elapsed 11s  eta 25s
+40%  frame 437/1092  elapsed 15s  eta 23s
+50%  frame 546/1092  elapsed 19s  eta 19s
+60%  frame 656/1092  elapsed 23s  eta 15s
+70%  frame 765/1092  elapsed 26s  eta 11s
+80%  frame 874/1092  elapsed 31s  eta 8s
+90%  frame 983/1092  elapsed 34s  eta 4s
+wrote /Users/vikramsingh/fold/video/video-16x9.mp4 · 1092 frames · 36.40s at 1920x1080 · 0.6 min
+done

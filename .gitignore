@@ -6,3 +6,7 @@ dist
 .playwright-mcp/
 
 .vercel/
+video/*.mp4
+video/frames*/
+video/check/
+video/*.wav

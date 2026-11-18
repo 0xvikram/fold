@@ -1,0 +1,113 @@
+<!doctype html>
+<!--
+  Launch video engine (v2). The storyboard is launch.js; the components are kit.js.
+  Pure function of time: launch.html?w=1920&h=1080 · ?w=1080&h=1920 · ?w=1080&h=1080.
+  Contract: window.__ready, __total, __seek(ms), __scenes, __size, __plan, __cues.
+-->
+<html><head><meta charset="utf-8">
+<script src="launch.js"></script>
+<script src="kit.js"></script>
+<script src="shots.js"></script>
+<script>{ const f = document.createElement("link"); f.rel = "stylesheet"; f.href = LAUNCH.fonts.css; window.__fontCss = new Promise((r) => { f.onload = r; f.onerror = r; }); document.head.appendChild(f);
+  const st = document.createElement("style"); st.textContent = KIT.css; document.head.appendChild(st); }</script>
+<style>
+*{box-sizing:border-box} html,body{margin:0;background:#000;overflow:hidden}
+#stage{position:relative;overflow:hidden;font-family:var(--sans);-webkit-font-smoothing:antialiased;text-rendering:geometricPrecision}
+#bg{position:absolute;inset:0}
+.shot{position:absolute;inset:0;display:none;color:var(--ink)}
+#fade{position:absolute;inset:0;opacity:0;z-index:60}
+</style></head>
+<body><div id="stage"><canvas id="bg"></canvas><div id="shots"></div><div id="fade"></div></div>
+<script>
+const L = window.LAUNCH;
+const q = new URLSearchParams(location.search);
+const W = +q.get("w") || L.size?.[0] || 1920, H = +q.get("h") || L.size?.[1] || 1080;
+const { U, LAND, PORT } = KIT.init(W, H);
+const { h, px, clamp, eo, eio, expo, back, lerp } = KIT;
+const stage = document.getElementById("stage");
+stage.style.width = px(W); stage.style.height = px(H);
+const rootCss = document.documentElement.style;
+rootCss.setProperty("--sans", L.fonts.sans); rootCss.setProperty("--serif", L.fonts.serif ?? "Georgia, serif"); rootCss.setProperty("--mono", L.fonts.mono ?? "monospace");
+
+// ---------------- timeline (beats → seconds) ----------------
+const BEAT = 60 / L.bpm, B = (n) => n * BEAT;
+const INTRO = L.intro ?? 0, TAIL = L.tail ?? 1.5, TRANS = L.transition ?? 0.55;
+const LIB = SHOTS({ L, KIT, time: (s, beats) => beats * BEAT }), { TYPES, ALIAS } = LIB;
+let at = INTRO;
+const shots = L.shots.map((s, i) => {
+  const type = ALIAS[s.type] ?? s.type;
+  const o = { energy: { sequence: 0, statement: 1, reveal: 2, end: 1 }[type] ?? 2, ...s, type, id: s.id ?? `${String(i + 1).padStart(2, "0")}-${type}`, i, start: at, len: B(s.beats) };
+  at += o.len; return o;
+});
+const TOTAL = at + TAIL;
+shots.at(-1).len += TAIL;
+
+
+// ---------------- assembly ----------------
+const bg = document.getElementById("bg"); bg.width = W; bg.height = H;
+const g2 = bg.getContext("2d");
+const box = document.getElementById("shots");
+const built = shots.map((s) => {
+  const r = TYPES[s.type]?.(s);
+  if (!r) throw new Error(`unknown shot type "${s.type}"`);
+  const wrap = h("div", "shot"); wrap.appendChild(r.el); box.appendChild(wrap);
+  const th = KIT.theme(L.theme, s.theme); KIT.applyTheme(wrap, th);
+  return { s, r, wrap, th };
+});
+const fadeEl = document.getElementById("fade");
+fadeEl.style.background = built.at(-1).th.bg;
+
+function frame(t) {
+  let ci = shots.findIndex((s) => t >= s.start && t < s.start + s.len);
+  if (ci < 0) ci = t < INTRO ? 0 : shots.length - 1;
+  const cur = built[ci], prev = built[ci - 1], lc = t - cur.s.start;
+  const inT = ci > 0 ? clamp(lc / TRANS) : 1, k = eo(inT);
+  const style = cur.s.enter ?? (prev?.s.exit === "zoom" ? "emerge" : "blur");
+  KIT.drawTheme(g2, prev && inT < 1 ? prev.th : cur.th, t, 1);
+  if (prev && inT < 1) KIT.drawTheme(g2, cur.th, t, k);
+  for (const b of built) b.wrap.style.display = "none";
+  if (prev && inT < 1 && style !== "cut" && prev.s.exit !== "zoom") {
+    prev.wrap.style.display = "block";
+    const ps = prev.wrap.style;
+    if (style === "slide") Object.assign(ps, { opacity: 1 - k, filter: `blur(${k * U}px)`, transform: `translateX(${-k * 8 * U}px)` });
+    else if (style === "zoom") Object.assign(ps, { opacity: 1 - k, filter: `blur(${k * 1.4 * U}px)`, transform: `scale(${1 + 0.25 * k})` });
+    else Object.assign(ps, { opacity: 1 - k, filter: `blur(${k * 1.3 * U}px)`, transform: `scale(${1 + 0.03 * k})` });
+    prev.r.update(t - prev.s.start);
+  }
+  cur.wrap.style.display = "block";
+  const cs = cur.wrap.style;
+  if (!prev || inT >= 1 || style === "cut") Object.assign(cs, { opacity: 1, filter: "none", transform: "none" });
+  else if (style === "slide") Object.assign(cs, { opacity: k, filter: `blur(${(1 - k) * U}px)`, transform: `translateX(${(1 - k) * 8 * U}px)` });
+  else if (style === "emerge") Object.assign(cs, { opacity: k, filter: `blur(${(1 - k) * 1.6 * U}px)`, transform: `scale(${0.82 + 0.18 * k})` });
+  else if (style === "zoom") Object.assign(cs, { opacity: k, filter: `blur(${(1 - k) * 1.4 * U}px)`, transform: `scale(${0.9 + 0.1 * k})` });
+  else Object.assign(cs, { opacity: k, filter: `blur(${(1 - k) * 1.3 * U}px)`, transform: `scale(${0.985 + 0.015 * k})` });
+  cur.r.update(lc);
+  fadeEl.style.opacity = L.fadeOut === false ? 0 : clamp((t - (TOTAL - 0.7)) / 0.7);
+}
+
+// ---------------- sound cues ----------------
+const cues = shots.flatMap((s, i) => LIB.cues(s, shots[i - 1]).map((c) => ({ ...c, t: s.start + c.t })));
+
+window.__size = [W, H];
+window.__total = TOTAL;
+window.__scenes = shots.map((s) => ({ id: s.id, start: s.start, len: s.len }));
+window.__plan = { bpm: L.bpm, beat: BEAT, intro: INTRO, total: TOTAL, music: L.music ?? {}, shots: shots.map((s) => ({ id: s.id, type: s.type, start: s.start, len: s.len, beats: s.beats, energy: s.energy, drop: !!s.drop, vo: s.vo ?? null, theme: built[s.i].th.mode })) };
+window.__cues = cues.filter((c) => c.t >= 0).sort((a, b) => a.t - b.t);
+window.__seek = (ms) => frame(ms / 1000);
+
+(async () => {
+  await window.__fontCss;
+  await Promise.all((L.fonts.load ?? []).map((f) => document.fonts.load(f).catch(() => {})));
+  await document.fonts.ready;
+  await Promise.all([...document.images].map((im) => im.decode().catch(() => console.error(`image failed: ${im.getAttribute("src")}`))));
+  for (const { r, wrap } of built) {
+    wrap.style.display = "block";
+    for (const [el, maxW] of r.fits ?? []) KIT.fit(el, maxW);
+    r.layout?.();
+    r.update(0);
+    wrap.style.display = "none";
+  }
+  frame(0);
+  window.__ready = true;
+})();
+</script></body></html>
