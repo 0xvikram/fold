@@ -51,6 +51,7 @@ Install the app, and the first puzzle is posted. A new one follows every day at 
 npm install
 npm test          # engine tests: folds, daily puzzles, scoring, streaks, maker rules
 npm run dev       # devvit playtest in your test subreddit
+npm run preview   # the real client + API in a plain browser at localhost:5182 (in-memory Redis, user "you")
 ```
 
 ## Credits

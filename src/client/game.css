@@ -57,8 +57,8 @@ button small { color: var(--muted); font-weight: 500; }
 .hist .n { font-size: 12px; color: var(--muted); }
 .hist .f { font-weight: 700; font-size: 13px; }
 .crowd-foot { margin: 4px 0 0; font-size: 12px; color: var(--muted); }
-.top { list-style: none; padding: 0; margin: 10px 0 0; text-align: left; }
-.top li { display: flex; justify-content: space-between; padding: 5px 2px; border-top: 1px solid var(--line); font-size: 14px; }
+.leaders { list-style: none; padding: 0; margin: 10px 0 0; text-align: left; }
+.leaders li { display: flex; justify-content: space-between; padding: 5px 2px; border-top: 1px solid var(--line); font-size: 14px; }
 .ghost { background: #fff; }
 .app { padding-bottom: 86px; }
 .byline { margin: -4px 2px 10px; color: var(--muted); font-size: 14px; }

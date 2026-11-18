@@ -197,7 +197,7 @@ function ResultCard(p: { r: Result; number: number; stats: PlayerStats; progress
           </div>
           <p className="crowd-foot">folds needed</p>
           {crowd.top.length ? (
-            <ol className="top">
+            <ol className="leaders">
               {crowd.top.map((t) => (
                 <li key={t.username}><span>u/{t.username}</span><b>{t.folds} folds · {"★".repeat(t.stars)}</b></li>
               ))}

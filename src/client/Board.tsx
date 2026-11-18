@@ -10,7 +10,12 @@ function useBoardSize(ref: RefObject<HTMLDivElement | null>) {
   useEffect(() => {
     const el = ref.current;
     if (!el) return;
-    const ro = new ResizeObserver(([e]) => setS(Math.floor(Math.min(e.contentRect.width, 560))));
+    // A hidden or collapsing container reports width 0; keep the last real size so the
+    // canvas never becomes 0 x 0 (drawing a 0-size canvas throws and blanks the game).
+    const ro = new ResizeObserver(([e]) => {
+      const w = Math.floor(Math.min(e.contentRect.width, 560));
+      if (w > 0) setS(w);
+    });
     ro.observe(el);
     return () => ro.disconnect();
   }, [ref]);
@@ -162,7 +167,7 @@ export function Board({ sheet, target, locked, requireSnap, showBounds, hint, ce
 
   useEffect(() => {
     const c = canvas.current;
-    if (!c) return;
+    if (!c || size < 1) return;
     const dpr = devicePixelRatio || 1;
     c.width = size * dpr;
     c.height = size * dpr;
