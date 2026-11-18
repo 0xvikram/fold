@@ -29,7 +29,7 @@ Fold #12 ★★★
 
 The **Make** tab lets anyone fold their own puzzle (2 to 6 folds). Every fold is checked as you make it: if a fold barely changes the shape or pushes paper off the board, Fold says so and shows what to undo. The finished shape must read well (not a sliver, not a plain rectangle).
 
-Submitted puzzles appear in the **Vote** tab. One vote per player per puzzle, no voting for your own. At 00:00 UTC the most-voted puzzle becomes the daily Fold, and its post, feed card and game say "folded by u/name". With no votes, a generated puzzle runs instead.
+Submitted puzzles appear in the **Vote** tab. One vote per player per puzzle, no voting for your own. At 00:00 UTC the most-voted puzzle becomes the daily Fold, and its post, feed card and game say "folded by u/name". A puzzle needs at least 3 votes; with none that qualify, a generated puzzle runs instead.
 
 Puzzles are stored as folds only, never free text, so there is nothing to moderate and every community puzzle is guaranteed solvable.
 
