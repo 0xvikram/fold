@@ -45,7 +45,7 @@ Themed weeks voted by the community, a weekly "hardest Fold" leaderboard, and mo
 - Demo post: (add the public test subreddit post URL)
 - Code: https://github.com/0xvikram/fold
 - Site: https://fold-daily.vercel.app
-- Video: (add the YouTube link)
+- Video: https://youtu.be/MfiSsICIRc0
 
 ## Built with
 devvit, react, typescript, hono, redis, vite, canvas

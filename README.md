@@ -6,6 +6,8 @@ Fold is a daily puzzle for Reddit. Everyone gets the same paper square and the s
 
 Built for Reddit's Game of the Day Hackathon on Devvit Web.
 
+Watch the 36-second video: https://youtu.be/MfiSsICIRc0 · Site: https://fold-daily.vercel.app
+
 ## How to play
 
 1. Look at the striped shape.
