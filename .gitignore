@@ -4,3 +4,5 @@ dist
 .env
 .proto/
 .playwright-mcp/
+
+.vercel/
