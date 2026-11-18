@@ -1,0 +1,13 @@
+* { box-sizing: border-box; }
+html, body, #root { height: 100%; margin: 0; }
+body { background: radial-gradient(120% 100% at 30% 10%, #f8f1e2, #ede2cd); font-family: ui-rounded, "SF Pro Rounded", system-ui, sans-serif; color: #262536; }
+.splash { height: 100%; display: flex; align-items: center; justify-content: center; gap: 22px; padding: 16px; }
+.paper { flex: none; width: 156px; height: 156px; border-radius: 18px; display: grid; place-items: center; background: #fffcf3; box-shadow: 0 16px 30px -18px rgba(80, 50, 20, 0.5), inset 0 0 0 1px rgba(120, 90, 50, 0.12); transform: rotate(-3deg); }
+.ph { width: 100px; height: 100px; border-radius: 12px; background: #e9dfcc; }
+.copy { max-width: 300px; }
+.eyebrow { margin: 0; font-size: 13px; font-weight: 700; color: #c4673d; letter-spacing: 0.04em; }
+h1 { margin: 6px 0 6px; font: 800 24px/1.15 Georgia, "Iowan Old Style", serif; letter-spacing: -0.01em; }
+.sub { margin: 0 0 14px; color: #6d6a78; font-size: 14px; }
+.go { height: 46px; padding: 0 22px; border-radius: 999px; border: 0; background: #e5533d; color: #fff; font: 700 16px inherit; cursor: pointer; box-shadow: 0 10px 20px -10px rgba(229, 83, 61, 0.9); }
+.tiny { margin: 8px 0 0; font-size: 12px; color: #8a8696; }
+@media (max-width: 420px) { .splash { flex-direction: column; text-align: center; gap: 14px; } .paper { width: 128px; height: 128px; } h1 { font-size: 21px; } }
